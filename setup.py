@@ -15,7 +15,7 @@ classifiers = [
 
 
 setup(name='django-crowdsourcing',
-      version='1.1.37',
+      version='2.0.1',
       classifiers=classifiers,
       description='Django app for collecting and displaying surveys.',
       long_description=long_description,

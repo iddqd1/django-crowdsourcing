@@ -100,7 +100,8 @@ class SurveyAdminForm(ModelForm):
 
 def submissions_as(obj):
     return obj.get_download_tags()
-submissions_as.allow_tags=True
+
+submissions_as.allow_tags = True
 submissions_as.short_description = 'Submissions as'
 
 
@@ -108,7 +109,7 @@ class SurveyAdmin(admin.ModelAdmin):
     save_as = True
     form = SurveyAdminForm
     search_fields = ('title', 'slug', 'tease', 'description')
-    prepopulated_fields = {'slug' : ('title',)}
+    prepopulated_fields = {'slug': ('title',)}
     list_display = (
         'title',
         'slug',
@@ -120,6 +121,10 @@ class SurveyAdmin(admin.ModelAdmin):
     list_filter = ('survey_date', 'is_published', 'site')
     date_hierarchy = 'survey_date'
     inlines = [QuestionInline]
+
+    def save_model(self, request, obj, form, change):
+        obj.slug = obj.slug.lower()
+        obj.save()
 
 
 admin.site.register(Survey, SurveyAdmin)
